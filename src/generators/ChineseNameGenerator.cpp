@@ -71,12 +71,9 @@ std::string ChineseNameGenerator::generate() const {
     std::string surname = generateSurname();
     
     Utils::Random& random = Utils::Random::instance();
-    int totalLength = random.nextInt(2, 4);
-    int givenNameLength = totalLength - static_cast<int>(surname.length());
-    
-    if (givenNameLength < 1) {
-        givenNameLength = 1;
-    }
+    const int minGivenLength = 1;
+    const int maxGivenLength = 2;
+    int givenNameLength = random.nextInt(minGivenLength, maxGivenLength);
     
     std::string givenName = generateGivenName(givenNameLength);
     
@@ -85,10 +82,6 @@ std::string ChineseNameGenerator::generate() const {
 
 std::string ChineseNameGenerator::getStyleName() const {
     return "中文名";
-}
-
-int ChineseNameGenerator::generateMultiple(int count) const {
-    return NameGenerator::generateMultiple(count);
 }
 
 } // namespace Generators

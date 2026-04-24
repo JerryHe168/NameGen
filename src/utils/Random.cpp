@@ -22,7 +22,13 @@ int Random::nextInt(int min, int max) {
 }
 
 int Random::nextInt(int max) {
-    return nextInt(0, max);
+    if (max < 0) {
+        throw std::invalid_argument("max cannot be negative");
+    }
+    if (max == 0) {
+        return 0;
+    }
+    return nextInt(0, max - 1);
 }
 
 double Random::nextDouble() {

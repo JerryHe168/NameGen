@@ -82,9 +82,5 @@ std::string JapaneseNameGenerator::getStyleName() const {
     return "日文名";
 }
 
-int JapaneseNameGenerator::generateMultiple(int count) const {
-    return NameGenerator::generateMultiple(count);
-}
-
 } // namespace Generators
 } // namespace NameGen

@@ -34,7 +34,7 @@ const T& Random::choice(const std::vector<T>& items) {
     if (items.empty()) {
         throw std::runtime_error("Cannot choose from empty vector");
     }
-    int index = nextInt(static_cast<int>(items.size()) - 1);
+    int index = nextInt(static_cast<int>(items.size()));
     return items[index];
 }
 

@@ -80,9 +80,5 @@ std::string EnglishNameGenerator::getStyleName() const {
     return "英文名";
 }
 
-int EnglishNameGenerator::generateMultiple(int count) const {
-    return NameGenerator::generateMultiple(count);
-}
-
 } // namespace Generators
 } // namespace NameGen
