@@ -13,8 +13,6 @@ public:
     
     std::string generate() const override;
     std::string getStyleName() const override;
-    
-    int generateMultiple(int count) const override;
 
 private:
     static const std::vector<std::string> m_surnames;
