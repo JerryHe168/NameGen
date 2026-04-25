@@ -1,5 +1,6 @@
 #include "generators/ChineseNameGenerator.h"
 #include "utils/Random.h"
+#include "utils/ConsoleUtils.h"
 
 namespace NameGen {
 namespace Generators {
@@ -30,58 +31,164 @@ const std::vector<std::string> ChineseNameGenerator::m_compoundSurnames = {
     "伯赏", "南宫", "墨哈", "谯笪", "年爱", "阳佟", "第五", "言福"
 };
 
-const std::vector<std::string> ChineseNameGenerator::m_givenNameChars = {
-    "伟", "芳", "娜", "秀英", "敏", "静", "丽", "强", "磊", "军",
-    "洋", "勇", "艳", "杰", "娟", "涛", "明", "超", "秀兰", "霞",
-    "平", "刚", "桂英", "文", "华", "玲", "辉", "鑫", "斌", "波",
-    "宇", "浩", "凯", "健", "俊", "帅", "晨", "博", "豪", "杰",
-    "涵", "默", "思", "远", "航", "天", "然", "安", "宁", "乐",
-    "欣", "怡", "佳", "悦", "妍", "茜", "琳", "璐", "瑶", "婷",
-    "雪", "冰", "清", "洁", "晨", "曦", "睿", "智", "颖", "慧",
-    "云", "岚", "雨", "虹", "霞", "月", "星", "辰", "阳", "光",
-    "德", "仁", "义", "礼", "智", "信", "善", "良", "诚", "实",
-    "志", "恒", "毅", "坚", "勇", "敢", "正", "直", "公", "平"
+const std::vector<std::string> ChineseNameGenerator::m_maleGivenNameChars = {
+    "伟", "强", "磊", "军", "洋", "勇", "杰", "涛", "明", "超",
+    "平", "刚", "文", "华", "辉", "鑫", "斌", "波", "宇", "浩",
+    "凯", "健", "俊", "帅", "晨", "博", "豪", "杰", "涵", "默",
+    "思", "远", "航", "天", "然", "安", "宁", "乐", "晨", "曦",
+    "睿", "智", "云", "岚", "雨", "虹", "月", "星", "辰", "阳",
+    "光", "德", "仁", "义", "礼", "智", "信", "善", "良", "诚",
+    "实", "志", "恒", "毅", "坚", "勇", "敢", "正", "直", "公",
+    "平", "峰", "山", "河", "海", "川", "林", "木", "森", "石",
+    "铁", "钢", "铜", "金", "银", "玉", "瑞", "祥", "福", "禄",
+    "寿", "喜", "财", "运", "龙", "虎", "豹", "狮", "鹏", "鹰"
+};
+
+const std::vector<std::string> ChineseNameGenerator::m_femaleGivenNameChars = {
+    "芳", "娜", "秀英", "敏", "静", "丽", "秀兰", "霞", "桂英", "艳",
+    "娟", "玲", "欣", "怡", "佳", "悦", "妍", "茜", "琳", "璐",
+    "瑶", "婷", "雪", "冰", "清", "洁", "安", "宁", "乐", "晨",
+    "曦", "睿", "颖", "慧", "云", "岚", "雨", "虹", "霞", "月",
+    "星", "辰", "花", "草", "兰", "梅", "菊", "荷", "莲", "蓉",
+    "桂", "桃", "杏", "梨", "樱", "枫", "柏", "柳", "杨", "桐",
+    "凤", "凰", "燕", "莺", "蝶", "蜂", "雀", "鹅", "鸳鸯", "仙鹤",
+    "玉", "珠", "宝", "贝", "金", "银", "钻", "翠", "琼", "瑶",
+    "琴", "棋", "书", "画", "诗", "词", "歌", "赋", "韵", "律",
+    "梦", "幻", "仙", "灵", "神", "奇", "妙", "美", "好", "甜"
+};
+
+const std::vector<std::string> ChineseNameGenerator::m_neutralGivenNameChars = {
+    "文", "华", "明", "亮", "光", "辉", "耀", "灿", "烂", "晨",
+    "曦", "晓", "阳", "月", "星", "辰", "天", "地", "人", "和",
+    "安", "宁", "平", "静", "顺", "畅", "通", "达", "远", "近",
+    "高", "低", "上", "下", "中", "正", "直", "公", "平", "公",
+    "道", "德", "仁", "义", "礼", "智", "信", "善", "良", "诚",
+    "实", "真", "假", "虚", "实", "空", "满", "盈", "亏", "损",
+    "益", "增", "减", "多", "少", "大", "小", "长", "短", "宽",
+    "窄", "厚", "薄", "深", "浅", "新", "旧", "老", "幼", "生",
+    "死", "存", "亡", "兴", "衰", "盛", "败", "成", "败", "得",
+    "失", "取", "舍", "进", "退", "升", "降", "出", "入", "来",
+    "去", "起", "伏", "动", "静", "开", "关", "启", "闭", "始",
+    "终", "结", "束", "开", "始", "结", "束", "源", "流", "根",
+    "本", "枝", "叶", "花", "果", "实", "种", "子", "苗", "芽"
 };
 
 ChineseNameGenerator::ChineseNameGenerator() {
 }
 
-std::string ChineseNameGenerator::generateSurname() const {
+ChineseNameGenerator::ChineseNameGenerator(const Config::ChineseNameConfig& config)
+    : m_config(config) {
+}
+
+std::string ChineseNameGenerator::generateSurname(Config::SurnameType type) const {
     Utils::Random& random = Utils::Random::instance();
     
-    if (random.nextDouble() < 0.2) {
-        return random.choice(m_compoundSurnames);
-    } else {
-        return random.choice(m_singleSurnames);
+    switch (type) {
+        case Config::SurnameType::Single:
+            return random.choice(m_singleSurnames);
+        case Config::SurnameType::Compound:
+            return random.choice(m_compoundSurnames);
+        case Config::SurnameType::Mixed:
+        default:
+            if (random.nextDouble() < 0.2) {
+                return random.choice(m_compoundSurnames);
+            } else {
+                return random.choice(m_singleSurnames);
+            }
     }
 }
 
-std::string ChineseNameGenerator::generateGivenName(int length) const {
+const std::vector<std::string>& ChineseNameGenerator::getGivenNameChars(Config::Gender gender) const {
+    switch (gender) {
+        case Config::Gender::Male:
+            return m_maleGivenNameChars;
+        case Config::Gender::Female:
+            return m_femaleGivenNameChars;
+        case Config::Gender::Mixed:
+        default:
+            return m_neutralGivenNameChars;
+    }
+}
+
+int ChineseNameGenerator::getGivenNameLength(Config::NameLength length) const {
+    Utils::Random& random = Utils::Random::instance();
+    
+    switch (length) {
+        case Config::NameLength::Single:
+            return 1;
+        case Config::NameLength::Double:
+            return 2;
+        case Config::NameLength::Mixed:
+        default:
+            return random.nextInt(1, 2);
+    }
+}
+
+std::string ChineseNameGenerator::generateGivenName(Config::Gender gender, Config::NameLength length) const {
     Utils::Random& random = Utils::Random::instance();
     std::string givenName;
     
-    for (int i = 0; i < length; ++i) {
-        givenName += random.choice(m_givenNameChars);
+    const std::vector<std::string>* chars;
+    Config::Gender actualGender = gender;
+    
+    if (gender == Config::Gender::Mixed) {
+        actualGender = random.nextDouble() < 0.5 ? Config::Gender::Male : Config::Gender::Female;
+    }
+    
+    chars = &getGivenNameChars(actualGender);
+    int len = getGivenNameLength(length);
+    
+    for (int i = 0; i < len; ++i) {
+        givenName += random.choice(*chars);
     }
     
     return givenName;
 }
 
-std::string ChineseNameGenerator::generate() const {
-    std::string surname = generateSurname();
-    
-    Utils::Random& random = Utils::Random::instance();
-    const int minGivenLength = 1;
-    const int maxGivenLength = 2;
-    int givenNameLength = random.nextInt(minGivenLength, maxGivenLength);
-    
-    std::string givenName = generateGivenName(givenNameLength);
-    
+std::string ChineseNameGenerator::generateWithConfig(const Config::ChineseNameConfig& config) const {
+    std::string surname = generateSurname(config.surnameType);
+    std::string givenName = generateGivenName(config.gender, config.nameLength);
     return surname + givenName;
+}
+
+int ChineseNameGenerator::generateMultipleWithConfig(const Config::ChineseNameConfig& config) const {
+    if (config.count <= 0) {
+        Utils::ConsoleUtils::printError("生成数量必须大于0");
+        return 0;
+    }
+    
+    Utils::ConsoleUtils::printInfo("生成 " + std::to_string(config.count) + " 个" + config.getDescription() + ":");
+    Utils::ConsoleUtils::printLine('-');
+    
+    int successCount = 0;
+    for (int i = 0; i < config.count; ++i) {
+        try {
+            std::string name = generateWithConfig(config);
+            Utils::ConsoleUtils::println("  " + std::to_string(i + 1) + ". " + name);
+            ++successCount;
+        } catch (const std::exception& e) {
+            Utils::ConsoleUtils::printError("生成第 " + std::to_string(i + 1) + " 个姓名时出错: " + std::string(e.what()));
+        }
+    }
+    
+    Utils::ConsoleUtils::printLine('-');
+    return successCount;
+}
+
+std::string ChineseNameGenerator::generate() const {
+    return generateWithConfig(m_config);
 }
 
 std::string ChineseNameGenerator::getStyleName() const {
     return "中文名";
+}
+
+void ChineseNameGenerator::setConfig(const Config::ChineseNameConfig& config) {
+    m_config = config;
+}
+
+Config::ChineseNameConfig ChineseNameGenerator::getConfig() const {
+    return m_config;
 }
 
 } // namespace Generators
