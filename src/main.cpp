@@ -53,6 +53,12 @@ enum class LengthMenuOption {
     MIXED = 3
 };
 
+enum class PostGenerateOption {
+    BACK_TO_MAIN = 0,
+    CONTINUE_GENERATE = 1,
+    RECONFIGURE = 2
+};
+
 void displayMainMenu() {
     ConsoleUtils::clearScreen();
     ConsoleUtils::printHeader("多风格姓名生成器");
@@ -98,6 +104,15 @@ void displayCountMenu(const std::string& description) {
     ConsoleUtils::clearScreen();
     ConsoleUtils::printHeader("设置生成数量 - " + description);
     ConsoleUtils::println("");
+    ConsoleUtils::printLine('-');
+}
+
+void displayPostGenerateMenu() {
+    ConsoleUtils::println("");
+    ConsoleUtils::println("请选择下一步操作:");
+    ConsoleUtils::printMenuOption(static_cast<int>(PostGenerateOption::CONTINUE_GENERATE), "继续生成（相同配置）");
+    ConsoleUtils::printMenuOption(static_cast<int>(PostGenerateOption::RECONFIGURE), "重新配置");
+    ConsoleUtils::printMenuOption(static_cast<int>(PostGenerateOption::BACK_TO_MAIN), "返回主菜单");
     ConsoleUtils::printLine('-');
 }
 
@@ -257,10 +272,23 @@ void runChineseNameFlow(SurnameType surnameType) {
                 
                 ConsoleUtils::println("");
                 generator.generateMultipleWithConfig(config);
-                ConsoleUtils::println("");
-                ConsoleUtils::pause();
                 
-                currentLevel = MenuLevel::NameLength;
+                displayPostGenerateMenu();
+                int postInput = ConsoleUtils::getIntInput("请输入选项 (0-2): ", 0, 2);
+                PostGenerateOption postOption = static_cast<PostGenerateOption>(postInput);
+                
+                switch (postOption) {
+                    case PostGenerateOption::CONTINUE_GENERATE:
+                        currentLevel = MenuLevel::Count;
+                        break;
+                    case PostGenerateOption::RECONFIGURE:
+                        currentLevel = MenuLevel::NameLength;
+                        break;
+                    case PostGenerateOption::BACK_TO_MAIN:
+                    default:
+                        currentLevel = MenuLevel::Main;
+                        break;
+                }
                 break;
             }
             
