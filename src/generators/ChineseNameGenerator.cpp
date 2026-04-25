@@ -31,7 +31,7 @@ const std::vector<std::string> ChineseNameGenerator::m_compoundSurnames = {
     "伯赏", "南宫", "墨哈", "谯笪", "年爱", "阳佟", "第五", "言福"
 };
 
-const std::vector<std::string> ChineseNameGenerator::m_maleGivenNameChars = {
+const std::vector<std::string> ChineseNameGenerator::m_maleSingleChars = {
     "伟", "强", "磊", "军", "洋", "勇", "杰", "涛", "明", "超",
     "平", "刚", "文", "华", "辉", "鑫", "斌", "波", "宇", "浩",
     "凯", "健", "俊", "帅", "晨", "博", "豪", "杰", "涵", "默",
@@ -44,20 +44,46 @@ const std::vector<std::string> ChineseNameGenerator::m_maleGivenNameChars = {
     "寿", "喜", "财", "运", "龙", "虎", "豹", "狮", "鹏", "鹰"
 };
 
-const std::vector<std::string> ChineseNameGenerator::m_femaleGivenNameChars = {
-    "芳", "娜", "秀英", "敏", "静", "丽", "秀兰", "霞", "桂英", "艳",
-    "娟", "玲", "欣", "怡", "佳", "悦", "妍", "茜", "琳", "璐",
-    "瑶", "婷", "雪", "冰", "清", "洁", "安", "宁", "乐", "晨",
-    "曦", "睿", "颖", "慧", "云", "岚", "雨", "虹", "霞", "月",
-    "星", "辰", "花", "草", "兰", "梅", "菊", "荷", "莲", "蓉",
-    "桂", "桃", "杏", "梨", "樱", "枫", "柏", "柳", "杨", "桐",
-    "凤", "凰", "燕", "莺", "蝶", "蜂", "雀", "鹅", "鸳鸯", "仙鹤",
-    "玉", "珠", "宝", "贝", "金", "银", "钻", "翠", "琼", "瑶",
-    "琴", "棋", "书", "画", "诗", "词", "歌", "赋", "韵", "律",
-    "梦", "幻", "仙", "灵", "神", "奇", "妙", "美", "好", "甜"
+const std::vector<std::string> ChineseNameGenerator::m_maleDoubleNames = {
+    "伟强", "志刚", "建国", "建军", "建华", "建平", "小明", "大明",
+    "文华", "文华", "志强", "志明", "志刚", "志强", "志远", "志豪",
+    "俊杰", "俊豪", "俊凯", "俊伟", "俊明", "俊峰", "俊龙", "俊鹏",
+    "浩然", "浩宇", "浩轩", "浩文", "浩明", "浩瀚", "浩然", "浩洋",
+    "天宇", "天翔", "天浩", "天杰", "天磊", "天阳", "天明", "天睿",
+    "文博", "文浩", "文轩", "文杰", "文磊", "文涛", "文强", "文军",
+    "梓轩", "梓浩", "梓杰", "梓豪", "梓睿", "梓阳", "梓明", "梓涛",
+    "子轩", "子浩", "子杰", "子豪", "子睿", "子阳", "子明", "子涛",
+    "宇航", "宇轩", "宇杰", "宇豪", "宇睿", "宇阳", "宇明", "宇涛",
+    "浩然", "浩泽", "浩宇", "浩轩", "浩杰", "浩豪", "浩睿", "浩阳"
 };
 
-const std::vector<std::string> ChineseNameGenerator::m_neutralGivenNameChars = {
+const std::vector<std::string> ChineseNameGenerator::m_femaleSingleChars = {
+    "芳", "娜", "秀", "英", "敏", "静", "丽", "兰", "霞", "桂",
+    "艳", "娟", "玲", "欣", "怡", "佳", "悦", "妍", "茜", "琳",
+    "璐", "瑶", "婷", "雪", "冰", "清", "洁", "安", "宁", "乐",
+    "晨", "曦", "睿", "颖", "慧", "云", "岚", "雨", "虹", "月",
+    "星", "辰", "花", "草", "梅", "菊", "荷", "莲", "蓉", "桃",
+    "杏", "梨", "樱", "枫", "柏", "柳", "杨", "桐", "凤", "凰",
+    "燕", "莺", "蝶", "蜂", "雀", "鹅", "鸳", "鸯", "仙", "鹤",
+    "玉", "珠", "宝", "贝", "金", "银", "翠", "琼", "琴", "棋",
+    "书", "画", "诗", "词", "歌", "赋", "韵", "律", "梦", "幻",
+    "灵", "神", "奇", "妙", "美", "好", "甜", "香", "纯", "柔"
+};
+
+const std::vector<std::string> ChineseNameGenerator::m_femaleDoubleNames = {
+    "秀英", "秀兰", "桂英", "小芳", "小红", "小丽", "小美", "小花",
+    "美丽", "美玲", "美凤", "美兰", "美华", "美娟", "美娜", "美婷",
+    "秀丽", "秀娟", "秀娜", "秀婷", "秀芳", "秀华", "秀玲", "秀敏",
+    "桂兰", "桂华", "桂娟", "桂娜", "桂婷", "桂芳", "桂玲", "桂敏",
+    "秀英", "秀兰", "桂英", "小芳", "小红", "小丽", "小美", "小花",
+    "梦琪", "梦萱", "梦洁", "梦瑶", "梦婷", "梦娜", "梦娟", "梦华",
+    "思琪", "思萱", "思洁", "思瑶", "思婷", "思娜", "思娟", "思华",
+    "雨琪", "雨萱", "雨洁", "雨瑶", "雨婷", "雨娜", "雨娟", "雨华",
+    "雪琪", "雪萱", "雪洁", "雪瑶", "雪婷", "雪娜", "雪娟", "雪华",
+    "欣怡", "欣然", "欣悦", "欣妍", "欣琳", "欣瑶", "欣婷", "欣娜"
+};
+
+const std::vector<std::string> ChineseNameGenerator::m_neutralSingleChars = {
     "文", "华", "明", "亮", "光", "辉", "耀", "灿", "烂", "晨",
     "曦", "晓", "阳", "月", "星", "辰", "天", "地", "人", "和",
     "安", "宁", "平", "静", "顺", "畅", "通", "达", "远", "近",
@@ -67,10 +93,20 @@ const std::vector<std::string> ChineseNameGenerator::m_neutralGivenNameChars = {
     "益", "增", "减", "多", "少", "大", "小", "长", "短", "宽",
     "窄", "厚", "薄", "深", "浅", "新", "旧", "老", "幼", "生",
     "死", "存", "亡", "兴", "衰", "盛", "败", "成", "败", "得",
-    "失", "取", "舍", "进", "退", "升", "降", "出", "入", "来",
-    "去", "起", "伏", "动", "静", "开", "关", "启", "闭", "始",
-    "终", "结", "束", "开", "始", "结", "束", "源", "流", "根",
-    "本", "枝", "叶", "花", "果", "实", "种", "子", "苗", "芽"
+    "失", "取", "舍", "进", "退", "升", "降", "出", "入", "来"
+};
+
+const std::vector<std::string> ChineseNameGenerator::m_neutralDoubleNames = {
+    "文华", "文华", "文华", "文华", "文华", "文华", "文华", "文华",
+    "明明", "亮亮", "光光", "辉辉", "灿灿", "晨晨", "晓晓", "阳阳",
+    "月月", "星星", "天天", "安安", "宁宁", "平平", "静静", "顺顺",
+    "畅畅", "通通", "达达", "远远", "高高", "中中", "正正", "直直",
+    "文文", "明明", "亮亮", "光光", "辉辉", "灿灿", "晨晨", "晓晓",
+    "阳阳", "月月", "星星", "天天", "安安", "宁宁", "平平", "静静",
+    "顺顺", "畅畅", "通通", "达达", "远远", "高高", "中中", "正正",
+    "直直", "文文", "明明", "亮亮", "光光", "辉辉", "灿灿", "晨晨",
+    "晓晓", "阳阳", "月月", "星星", "天天", "安安", "宁宁", "平平",
+    "静静", "顺顺", "畅畅", "通通", "达达", "远远", "高高", "中中"
 };
 
 ChineseNameGenerator::ChineseNameGenerator() {
@@ -98,51 +134,79 @@ std::string ChineseNameGenerator::generateSurname(Config::SurnameType type) cons
     }
 }
 
-const std::vector<std::string>& ChineseNameGenerator::getGivenNameChars(Config::Gender gender) const {
+const std::vector<std::string>& ChineseNameGenerator::getSingleChars(Config::Gender gender) const {
     switch (gender) {
         case Config::Gender::Male:
-            return m_maleGivenNameChars;
+            return m_maleSingleChars;
         case Config::Gender::Female:
-            return m_femaleGivenNameChars;
+            return m_femaleSingleChars;
         case Config::Gender::Mixed:
         default:
-            return m_neutralGivenNameChars;
+            return m_neutralSingleChars;
     }
 }
 
-int ChineseNameGenerator::getGivenNameLength(Config::NameLength length) const {
+const std::vector<std::string>& ChineseNameGenerator::getDoubleNames(Config::Gender gender) const {
+    switch (gender) {
+        case Config::Gender::Male:
+            return m_maleDoubleNames;
+        case Config::Gender::Female:
+            return m_femaleDoubleNames;
+        case Config::Gender::Mixed:
+        default:
+            return m_neutralDoubleNames;
+    }
+}
+
+std::string ChineseNameGenerator::generateSingleCharName(Config::Gender gender) const {
     Utils::Random& random = Utils::Random::instance();
     
-    switch (length) {
-        case Config::NameLength::Single:
-            return 1;
-        case Config::NameLength::Double:
-            return 2;
-        case Config::NameLength::Mixed:
-        default:
-            return random.nextInt(1, 2);
+    Config::Gender actualGender = gender;
+    if (gender == Config::Gender::Mixed) {
+        actualGender = random.nextDouble() < 0.5 ? Config::Gender::Male : Config::Gender::Female;
+    }
+    
+    const std::vector<std::string>& singleChars = getSingleChars(actualGender);
+    return random.choice(singleChars);
+}
+
+std::string ChineseNameGenerator::generateDoubleCharName(Config::Gender gender) const {
+    Utils::Random& random = Utils::Random::instance();
+    
+    Config::Gender actualGender = gender;
+    if (gender == Config::Gender::Mixed) {
+        actualGender = random.nextDouble() < 0.5 ? Config::Gender::Male : Config::Gender::Female;
+    }
+    
+    const std::vector<std::string>& singleChars = getSingleChars(actualGender);
+    const std::vector<std::string>& doubleNames = getDoubleNames(actualGender);
+    
+    if (random.nextDouble() < 0.5 && !doubleNames.empty()) {
+        return random.choice(doubleNames);
+    } else {
+        std::string name;
+        name += random.choice(singleChars);
+        name += random.choice(singleChars);
+        return name;
     }
 }
 
 std::string ChineseNameGenerator::generateGivenName(Config::Gender gender, Config::NameLength length) const {
     Utils::Random& random = Utils::Random::instance();
-    std::string givenName;
     
-    const std::vector<std::string>* chars;
-    Config::Gender actualGender = gender;
-    
-    if (gender == Config::Gender::Mixed) {
-        actualGender = random.nextDouble() < 0.5 ? Config::Gender::Male : Config::Gender::Female;
+    Config::NameLength actualLength = length;
+    if (length == Config::NameLength::Mixed) {
+        actualLength = random.nextDouble() < 0.5 ? Config::NameLength::Single : Config::NameLength::Double;
     }
     
-    chars = &getGivenNameChars(actualGender);
-    int len = getGivenNameLength(length);
-    
-    for (int i = 0; i < len; ++i) {
-        givenName += random.choice(*chars);
+    switch (actualLength) {
+        case Config::NameLength::Single:
+            return generateSingleCharName(gender);
+        case Config::NameLength::Double:
+        case Config::NameLength::Mixed:
+        default:
+            return generateDoubleCharName(gender);
     }
-    
-    return givenName;
 }
 
 std::string ChineseNameGenerator::generateWithConfig(const Config::ChineseNameConfig& config) const {
